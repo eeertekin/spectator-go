@@ -14,6 +14,7 @@ import (
 var collection []string
 var c *http.Client
 var m sync.Mutex
+var active bool = false
 
 func Start(interval int) {
 	c = &http.Client{
@@ -26,6 +27,7 @@ func Start(interval int) {
 	}
 
 	go watch(interval)
+	active = true
 }
 
 func Inc(key string, value int64) {
@@ -69,4 +71,8 @@ func watch(interval int) {
 	for range time.NewTicker(time.Duration(interval) * time.Second).C {
 		Push()
 	}
+}
+
+func IsActive() bool {
+	return active
 }
