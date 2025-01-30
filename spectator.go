@@ -16,7 +16,7 @@ var c *http.Client
 var m sync.Mutex
 var active bool = false
 
-func Start(interval int) {
+func init() {
 	c = &http.Client{
 		Timeout: time.Second,
 		Transport: &http.Transport{
@@ -25,7 +25,9 @@ func Start(interval int) {
 			},
 		},
 	}
+}
 
+func Start(interval int) {
 	go watch(interval)
 	active = true
 }
