@@ -6,6 +6,7 @@ import (
 	"log"
 	"net"
 	"net/http"
+	"runtime"
 	"strings"
 	"sync"
 	"time"
@@ -77,4 +78,11 @@ func watch(interval int) {
 
 func IsActive() bool {
 	return active
+}
+
+var memstats runtime.MemStats
+
+func AllocMemory() int64 {
+	runtime.ReadMemStats(&memstats)
+	return int64(memstats.Alloc)
 }
