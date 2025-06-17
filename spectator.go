@@ -86,3 +86,8 @@ func AllocMemory() int64 {
 	runtime.ReadMemStats(&memstats)
 	return int64(memstats.Alloc)
 }
+
+func HeapInUse() int64 {
+	runtime.ReadMemStats(&memstats)
+	return int64(memstats.HeapInuse)
+}
